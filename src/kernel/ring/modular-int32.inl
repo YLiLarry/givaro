@@ -40,42 +40,42 @@ namespace Givaro {
     // ------------------------
     // ----- Classic arithmetic
         
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::mul
-    (Element& r, const Element& a, const Element& b) const
-    {
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::mul
+	(Element& r, const Element& a, const Element& b) const
+	{
 		return  __GIVARO_MODULAR_INTEGER_MUL(r,_p,a,b);
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::sub
-    (Element& r, const Element& a, const Element& b) const
-    {
-        return __GIVARO_MODULAR_INTEGER_SUB(r,_p,a,b);
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::sub
+	(Element& r, const Element& a, const Element& b) const
+	{
+		return __GIVARO_MODULAR_INTEGER_SUB(r,_p,a,b);
+	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::add
-    (Element& r, const Element& a, const Element& b) const
-    {
-        __GIVARO_MODULAR_INTEGER_ADD(r,_p,a,b);
-        return r;
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::add
+	(Element& r, const Element& a, const Element& b) const
+	{
+		__GIVARO_MODULAR_INTEGER_ADD(r,_p,a,b);
+		return r;
+	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::neg
-    (Element& r, const Element& a) const
-    {
-        return __GIVARO_MODULAR_INTEGER_NEG(r,_p,a);
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::neg
+	(Element& r, const Element& a) const
+	{
+		return __GIVARO_MODULAR_INTEGER_NEG(r,_p,a);
+	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::inv
-    (Element& r, const Element& a) const
-    {
-        invext(r, a, int32_t(_p));
-        return (r < 0)? r += int32_t(_p) : r;
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::inv
+	(Element& r, const Element& a) const
+	{
+		invext(r, a, int32_t(_p));
+		return (r < 0)? r += int32_t(_p) : r;
+	}
 
     template<typename COMP>
     inline bool Modular<int32_t, COMP>::isUnit(const Element& a) const 
@@ -85,106 +85,106 @@ namespace Givaro {
         return isOne(d) || isMOne(d); 
     }
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::div
-    (Element& r, const Element& a, const Element& b) const
-    {
-        return mulin(inv(r, b), a);
-    }
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::mulin
-    (Element& r, const Element& a) const
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::div
+	(Element& r, const Element& a, const Element& b) const
+	{
+		return mulin(inv(r, b), a);
+	}
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::mulin
+	(Element& r, const Element& a) const
 	{
 		return __GIVARO_MODULAR_INTEGER_MULIN(r, _p, a);
-    }
-
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::divin
-    (Element& r, const Element& a) const
-    {
-        Element ia;
-        return mulin(r, inv(ia, a));
-    }
-
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::addin
-    (Element& r, const Element& a) const
-    {
-        int32_t tmp = r;
-        __GIVARO_MODULAR_INTEGER_ADDIN(tmp,_p, a);
-        return r = Element(tmp);
-    }
-
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::subin
-    (Element& r, const Element& a) const
-    {
-        int32_t tmp = r;
-        __GIVARO_MODULAR_INTEGER_SUBIN(tmp,_p, a);
-        return r = (Modular<int32_t, COMP>::Element)tmp;
-    }
-
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::negin
-    (Element& r) const
-    {
-        return __GIVARO_MODULAR_INTEGER_NEGIN(r,_p);
-    }
-
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::invin
-    (Element& r) const
-    {
-        return inv(r, r);
 	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::axpy
-    (Element& r, const Element& a, const Element& b, const Element& c) const
-    {
-        return __GIVARO_MODULAR_INTEGER_MULADD(r, _p, a, b, c);
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::divin
+	(Element& r, const Element& a) const
+	{
+		Element ia;
+		return mulin(r, inv(ia, a));
+	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element&  Modular<int32_t, COMP>::axpyin
-    (Element& r, const Element& a, const Element& b) const
-    {
-        return __GIVARO_MODULAR_INTEGER_MULADDIN(r, _p, a, b);
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::addin
+	(Element& r, const Element& a) const
+	{
+		int32_t tmp = r;
+		__GIVARO_MODULAR_INTEGER_ADDIN(tmp,_p, a);
+		return r = Element(tmp);
+	}
+
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::subin
+	(Element& r, const Element& a) const
+	{
+		int32_t tmp = r;
+		__GIVARO_MODULAR_INTEGER_SUBIN(tmp,_p, a);
+		return r = (Modular<int32_t, COMP>::Element)tmp;
+	}
+
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::negin
+	(Element& r) const
+	{
+		return __GIVARO_MODULAR_INTEGER_NEGIN(r,_p);
+	}
+
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::invin
+	(Element& r) const
+	{
+		return inv(r, r);
+	}
+
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::axpy
+	(Element& r, const Element& a, const Element& b, const Element& c) const
+	{
+		return __GIVARO_MODULAR_INTEGER_MULADD(r, _p, a, b, c);
+	}
+
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element&  Modular<int32_t, COMP>::axpyin
+	(Element& r, const Element& a, const Element& b) const
+	{
+		return __GIVARO_MODULAR_INTEGER_MULADDIN(r, _p, a, b);
+	}
         
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::maxpy
-    (Element& r, const Element& a, const Element& b, const Element& c) const
-    {
-        int32_t tmp;
-        __GIVARO_MODULAR_INTEGER_MUL(tmp, _p, a, b);
-        __GIVARO_MODULAR_INTEGER_SUB(r, _p, c, tmp);
-        return r;
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element& Modular<int32_t, COMP>::maxpy
+	(Element& r, const Element& a, const Element& b, const Element& c) const
+	{
+		int32_t tmp;
+		__GIVARO_MODULAR_INTEGER_MUL(tmp, _p, a, b);
+		__GIVARO_MODULAR_INTEGER_SUB(r, _p, c, tmp);
+		return r;
+	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element&  Modular<int32_t, COMP>::axmy
-    (Element& r, const Element& a, const Element& b, const Element& c) const
-    {
-        int32_t tmp;
-        __GIVARO_MODULAR_INTEGER_MULSUB(tmp, _p, a, b, c);
-        return r = (Modular<int32_t, COMP>::Element)tmp;
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element&  Modular<int32_t, COMP>::axmy
+	(Element& r, const Element& a, const Element& b, const Element& c) const
+	{
+		int32_t tmp;
+		__GIVARO_MODULAR_INTEGER_MULSUB(tmp, _p, a, b, c);
+		return r = (Modular<int32_t, COMP>::Element)tmp;
+	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element&  Modular<int32_t, COMP>::maxpyin
-    (Element& r, const Element& a, const Element& b) const
-    {
-        __GIVARO_MODULAR_INTEGER_SUBMULIN(r, _p, a, b );
-        return r;
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element&  Modular<int32_t, COMP>::maxpyin
+	(Element& r, const Element& a, const Element& b) const
+	{
+		__GIVARO_MODULAR_INTEGER_SUBMULIN(r, _p, a, b );
+		return r;
+	}
 
-    template<typename COMP>
-    inline typename Modular<int32_t, COMP>::Element&  Modular<int32_t, COMP>::axmyin
-    (Element& r, const Element& a, const Element& b) const
-    {
-        return __GIVARO_MODULAR_INTEGER_MULSUB(r, _p, a, b, r );
-    }
+	template<typename COMP>
+	inline typename Modular<int32_t, COMP>::Element&  Modular<int32_t, COMP>::axmyin
+	(Element& r, const Element& a, const Element& b) const
+	{
+		return __GIVARO_MODULAR_INTEGER_MULSUB(r, _p, a, b, r );
+	}
 
     // --------------------
     // ----- Initialisation

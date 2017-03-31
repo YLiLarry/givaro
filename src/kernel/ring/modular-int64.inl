@@ -40,42 +40,42 @@ namespace Givaro {
     // ------------------------
     // ----- Classic arithmetic
         
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::mul
-    (Element& r, const Element& a, const Element& b) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::mul
+	(Element& r, const Element& a, const Element& b) const
+	{
 	return  __GIVARO_MODULAR_INTEGER_MUL(r,_p,a,b);
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::sub
-    (Element& r, const Element& a, const Element& b) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::sub
+	(Element& r, const Element& a, const Element& b) const
+	{
 	return __GIVARO_MODULAR_INTEGER_SUB(r,_p,a,b);
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::add
-    (Element& r, const Element& a, const Element& b) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::add
+	(Element& r, const Element& a, const Element& b) const
+	{
 	__GIVARO_MODULAR_INTEGER_ADD(r,_p,a,b);
 	return r;
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::neg
-    (Element& r, const Element& a) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::neg
+	(Element& r, const Element& a) const
+	{
 	return __GIVARO_MODULAR_INTEGER_NEG(r,_p,a);
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::inv
-    (Element& r, const Element& a) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::inv
+	(Element& r, const Element& a) const
+	{
 	invext(r, a, int64_t(_p));
 	return (r < 0)? r += (int64_t)_p : r;
-    }
+	}
 
     template<typename COMP>
     inline bool Modular<int64_t, COMP>::isUnit(const Element& a) const 
@@ -85,249 +85,249 @@ namespace Givaro {
         return isOne(d) || isMOne(d); 
     }
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::div
-    (Element& r, const Element& a, const Element& b) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::div
+	(Element& r, const Element& a, const Element& b) const
+	{
 	return mulin( inv(r,b), a );
-    }
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::mulin
-    (Element& r, const Element& a) const
-    {
+	}
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::mulin
+	(Element& r, const Element& a) const
+	{
 	return __GIVARO_MODULAR_INTEGER_MULIN(r,_p, a);
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::divin
-    (Element& r, const Element& a) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::divin
+	(Element& r, const Element& a) const
+	{
 	typename Modular<int64_t, COMP>::Element ia;
 	inv(ia, a);
 	return mulin(r, ia);
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::addin
-    (Element& r, const Element& a) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::addin
+	(Element& r, const Element& a) const
+	{
 	int64_t tmp = (int64_t)r;
 	__GIVARO_MODULAR_INTEGER_ADDIN(tmp ,_p, a);
 	return r = (typename Modular<int64_t, COMP>::Element)tmp;
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::subin
-    (Element& r, const Element& a) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::subin
+	(Element& r, const Element& a) const
+	{
 	int64_t tmp = (int64_t)r;
 	__GIVARO_MODULAR_INTEGER_SUBIN(tmp, _p, a);
 	return r = (typename Modular<int64_t, COMP>::Element)tmp;
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::negin
-    (Element& r) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::negin
+	(Element& r) const
+	{
 	return __GIVARO_MODULAR_INTEGER_NEGIN(r,_p);
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::invin
-    (Element& r) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::invin
+	(Element& r) const
+	{
 	return inv(r, r);
-    }
+	}
         
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::axpy
-    (Element& r, const Element& a, const Element& b, const Element& c) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::axpy
+	(Element& r, const Element& a, const Element& b, const Element& c) const
+	{
 	return __GIVARO_MODULAR_INTEGER_MULADD(r, _p, a, b, c);
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element&  Modular<int64_t, COMP>::axpyin
-    (Element& r, const Element& a, const Element& b) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element&  Modular<int64_t, COMP>::axpyin
+	(Element& r, const Element& a, const Element& b) const
+	{
 	return __GIVARO_MODULAR_INTEGER_MULADDIN(r, _p, a, b);
-    }
+	}
         
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::maxpy
-    (Element& r, const Element& a, const Element& b, const Element& c) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::maxpy
+	(Element& r, const Element& a, const Element& b, const Element& c) const
+	{
 	int64_t tmp;
 	__GIVARO_MODULAR_INTEGER_MUL(tmp, _p, a, b);
 	__GIVARO_MODULAR_INTEGER_SUB(r, _p, c, tmp);
 	return r;
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element&  Modular<int64_t, COMP>::axmy
-    (Element& r, const Element& a, const Element& b, const Element& c) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element&  Modular<int64_t, COMP>::axmy
+	(Element& r, const Element& a, const Element& b, const Element& c) const
+	{
 	int64_t tmp;
 	__GIVARO_MODULAR_INTEGER_MULSUB(tmp, _p, a, b, c);
 	return r = (typename Modular<int64_t, COMP>::Element)tmp;
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element&  Modular<int64_t, COMP>::maxpyin
-    (Element& r, const Element& a, const Element& b) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element&  Modular<int64_t, COMP>::maxpyin
+	(Element& r, const Element& a, const Element& b) const
+	{
 	__GIVARO_MODULAR_INTEGER_SUBMULIN(r, _p, a, b );
 	return r;
-    }
+	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element&  Modular<int64_t, COMP>::axmyin
-    (Element& r, const Element& a, const Element& b) const
-    {
+	template<typename COMP>
+	inline typename Modular<int64_t, COMP>::Element&  Modular<int64_t, COMP>::axmyin
+	(Element& r, const Element& a, const Element& b) const
+	{
 	return __GIVARO_MODULAR_INTEGER_MULSUB(r, _p, a, b, r );
-    }
+	}
         
     // ----------------------------------
     // ----- Classic arithmetic on arrays
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::mul
-    (const size_t sz, Array r, constArray a, constArray b) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_MUL(tmp, _p,a[i], b[i]);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::mul
+//	(const size_t sz, Array r, constArray a, constArray b) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_MUL(tmp, _p,a[i], b[i]);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::mul
-    (const size_t sz, Array r, constArray a, Element b) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_MUL(tmp, _p, a[i], b);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::mul
+//	(const size_t sz, Array r, constArray a, Element b) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_MUL(tmp, _p, a[i], b);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::div
-    (const size_t sz, Array r, constArray a, constArray b) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    div( r[i], a[i], b[i]);
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::div
+//	(const size_t sz, Array r, constArray a, constArray b) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		div( r[i], a[i], b[i]);
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::div
-    (const size_t sz, Array r, constArray a, Element b) const
-    {
-	typename Modular<int64_t, COMP>::Element ib;
-	inv(ib, b);
-	mul(sz, r, a, ib);
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::div
+//	(const size_t sz, Array r, constArray a, Element b) const
+//	{
+//	typename Modular<int64_t, COMP>::Element ib;
+//	inv(ib, b);
+//	mul(sz, r, a, ib);
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::add
-    (const size_t sz, Array r, constArray a, constArray b) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_ADD(tmp, _p, a[i], b[i]);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::add
+//	(const size_t sz, Array r, constArray a, constArray b) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_ADD(tmp, _p, a[i], b[i]);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::add
-    (const size_t sz, Array r, constArray a, Element b) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_ADD(tmp,_p, a[i], b);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::add
+//	(const size_t sz, Array r, constArray a, Element b) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_ADD(tmp,_p, a[i], b);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::sub
-    (const size_t sz, Array r, constArray a, constArray b) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_SUB(tmp, _p, a[i], b[i]);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::sub
+//	(const size_t sz, Array r, constArray a, constArray b) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_SUB(tmp, _p, a[i], b[i]);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::sub
-    (const size_t sz, Array r, constArray a, Element b) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_SUB(tmp, _p, a[i], b);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::sub
+//	(const size_t sz, Array r, constArray a, Element b) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_SUB(tmp, _p, a[i], b);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::neg
-    (const size_t sz, Array r, constArray a) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_NEG(tmp, _p, a[i]);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::neg
+//	(const size_t sz, Array r, constArray a) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_NEG(tmp, _p, a[i]);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::axpy
-    (const size_t sz, Array r, constArray a, constArray x, constArray y) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_MULADD(tmp, _p, a[i], (int64_t)x[i], (int64_t)y[i]);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::axpy
+//	(const size_t sz, Array r, constArray a, constArray x, constArray y) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_MULADD(tmp, _p, a[i], (int64_t)x[i], (int64_t)y[i]);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::axpyin
-    (const size_t sz, Array r, constArray a, constArray x) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp = (int64_t)r[i];
-	    __GIVARO_MODULAR_INTEGER_MULADDIN(tmp, _p, a[i], (int64_t)x[i]);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::axpyin
+//	(const size_t sz, Array r, constArray a, constArray x) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp = (int64_t)r[i];
+//		__GIVARO_MODULAR_INTEGER_MULADDIN(tmp, _p, a[i], (int64_t)x[i]);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::axmy
-    (const size_t sz, Array r, constArray a, constArray x, constArray y) const
-    {
-	for ( size_t i=sz; i--; ) {
-	    int64_t tmp;
-	    __GIVARO_MODULAR_INTEGER_MULSUB(tmp, _p, a[i], (int64_t)x[i], (int64_t)y[i]);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::axmy
+//	(const size_t sz, Array r, constArray a, constArray x, constArray y) const
+//	{
+//	for ( size_t i=sz; i--; ) {
+//		int64_t tmp;
+//		__GIVARO_MODULAR_INTEGER_MULSUB(tmp, _p, a[i], (int64_t)x[i], (int64_t)y[i]);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::maxpyin
-    (const size_t sz, Array r, constArray a, constArray x) const
-    {
-	for ( size_t i=sz ; --i ; ) {
-	    int64_t tmp = (int64_t)r[i];
-	    __GIVARO_MODULAR_INTEGER_SUBMULIN(tmp, _p, a[i], (int64_t)x[i]);
-	    r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
-	}
-    }
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::maxpyin
+//	(const size_t sz, Array r, constArray a, constArray x) const
+//	{
+//	for ( size_t i=sz ; --i ; ) {
+//		int64_t tmp = (int64_t)r[i];
+//		__GIVARO_MODULAR_INTEGER_SUBMULIN(tmp, _p, a[i], (int64_t)x[i]);
+//		r[i] = (typename Modular<int64_t, COMP>::Element)tmp;
+//	}
+//	}
         
     // --------------------
     // ----- Initialisation
@@ -346,13 +346,13 @@ namespace Givaro {
 	return x;
     }
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::init
-    ( const size_t sz, Array r, constArray a ) const
-    {
-	for ( size_t i=sz ; --i ; )
-	    r[i] = a[i];
-    }
+//    template<typename COMP>
+//    inline void Modular<int64_t, COMP>::init
+//    ( const size_t sz, Array r, constArray a ) const
+//    {
+//	for ( size_t i=sz ; --i ; )
+//	    r[i] = a[i];
+//    }
 
     template<typename COMP> inline  typename Modular<int64_t, COMP>::Element&
     Modular<int64_t, COMP>::assign ( Element& r, const Element& a ) const
@@ -360,13 +360,13 @@ namespace Givaro {
 	return r = a;
     }
 
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::assign
-    ( const size_t sz, Array r, constArray a ) const
-    {
-	for ( size_t i=sz ; --i ; )
-	    r[i] = a[i];
-    }
+//    template<typename COMP>
+//    inline void Modular<int64_t, COMP>::assign
+//    ( const size_t sz, Array r, constArray a ) const
+//    {
+//	for ( size_t i=sz ; --i ; )
+//	    r[i] = a[i];
+//    }
 
     // ------------
     // ----- Reduce
@@ -390,115 +390,115 @@ namespace Givaro {
     // ------------
     // ----- Arrays
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::dotprod
-    ( Element& r, const int bound, const size_t sz, constArray a, constArray b ) const
-    {
-	unsigned int stride = 1;
-	if (bound < Signed_Trait<Element>::max() )
-	    stride = (unsigned int) ( GIVARO_MAXULONG/((unsigned long)bound * (unsigned long)bound) );
-	unsigned long dot = (unsigned long) zero; // this is intented !
-	if ((sz <10) && (sz <stride)) {
-	    for(  size_t i= sz; i--; )
-#ifdef __x86_64__
-		dot += (unsigned long)a[i] * (unsigned long)b[i];
-#else
-	    dot = (unsigned long) (dot + a[i] * b[i]);
-#endif
-	    if (dot > _p) r = (Element)(dot % (uint64_t)_p);
-	    else r = (Element)dot;
-	    return r;
-	}
-	unsigned int i_begin=0;
-	stride &= (unsigned int)~0x1;
-	if (stride ==0) {
-	    for(  size_t i= sz; --i; ) {
-#ifdef __x86_64__
-		dot += (unsigned long)a[i] * (unsigned long)b[i];
-		if (dot>_p) dot %= _p;
-#else
-		dot = (unsigned long) (dot + a[i] * b[i]);
-		if (dot>_p) dot = (unsigned long) (dot % _p);
-#endif
-	    }
-	    r = (Element)dot;
-	    return r;
-	}
-	do {
-	    size_t min_sz = ((sz-i_begin) < stride ? (sz-i_begin) : stride);
-	    if ((min_sz & 0x1) !=0)
-		{
-		    --min_sz;
-		    ++i_begin;
-#ifdef __x86_64__
-		    dot += (unsigned long)a++[min_sz] * (unsigned long)b++[min_sz];
-#else
-		    dot = (unsigned long) (dot + a++[min_sz] * b++[min_sz]);
-#endif
-		}
-	    if (min_sz > 1)
-		for(  size_t i= min_sz; i>0; --i, --i, ++a, ++a, ++b, ++b ) //!@todo o_O
-		    {
-#ifdef __x86_64__
-			dot += (unsigned long)a[0] * (unsigned long)b[0];
-			dot += (unsigned long)a[1] * (unsigned long)b[1];
-#else
-			dot = (unsigned long) (dot +  a[0] * b[0] );
-			dot = (unsigned long) (dot +  a[1] * b[1] );
-#endif
+//	template<typename COMP>
+//	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::dotprod
+//	( Element& r, const int bound, const size_t sz, constArray a, constArray b ) const
+//	{
+//	unsigned int stride = 1;
+//	if (bound < Signed_Trait<Element>::max() )
+//		stride = (unsigned int) ( GIVARO_MAXULONG/((unsigned long)bound * (unsigned long)bound) );
+//	unsigned long dot = (unsigned long) zero; // this is intented !
+//	if ((sz <10) && (sz <stride)) {
+//		for(  size_t i= sz; i--; )
+//#ifdef __x86_64__
+//		dot += (unsigned long)a[i] * (unsigned long)b[i];
+//#else
+//		dot = (unsigned long) (dot + a[i] * b[i]);
+//#endif
+//		if (dot > _p) r = (Element)(dot % (uint64_t)_p);
+//		else r = (Element)dot;
+//		return r;
+//	}
+//	unsigned int i_begin=0;
+//	stride &= (unsigned int)~0x1;
+//	if (stride ==0) {
+//		for(  size_t i= sz; --i; ) {
+//#ifdef __x86_64__
+//		dot += (unsigned long)a[i] * (unsigned long)b[i];
+//		if (dot>_p) dot %= _p;
+//#else
+//		dot = (unsigned long) (dot + a[i] * b[i]);
+//		if (dot>_p) dot = (unsigned long) (dot % _p);
+//#endif
+//		}
+//		r = (Element)dot;
+//		return r;
+//	}
+//	do {
+//		size_t min_sz = ((sz-i_begin) < stride ? (sz-i_begin) : stride);
+//		if ((min_sz & 0x1) !=0)
+//		{
+//			--min_sz;
+//			++i_begin;
+//#ifdef __x86_64__
+//			dot += (unsigned long)a++[min_sz] * (unsigned long)b++[min_sz];
+//#else
+//			dot = (unsigned long) (dot + a++[min_sz] * b++[min_sz]);
+//#endif
+//		}
+//		if (min_sz > 1)
+//		for(  size_t i= min_sz; i>0; --i, --i, ++a, ++a, ++b, ++b ) //!@todo o_O
+//			{
+//#ifdef __x86_64__
+//			dot += (unsigned long)a[0] * (unsigned long)b[0];
+//			dot += (unsigned long)a[1] * (unsigned long)b[1];
+//#else
+//			dot = (unsigned long) (dot +  a[0] * b[0] );
+//			dot = (unsigned long) (dot +  a[1] * b[1] );
+//#endif
 
-		    }
-#ifdef __x86_64__
-	    if (dot>(uint64_t)_p) dot %= (uint64_t)_p;
-#else
-	    if (dot>_p) dot = (unsigned long) (dot % _p);
-#endif
-	    i_begin += (unsigned int) min_sz;
-	} while (i_begin <sz);
-	r = (Element)dot;
-	return r;
-    }
+//			}
+//#ifdef __x86_64__
+//		if (dot>(uint64_t)_p) dot %= (uint64_t)_p;
+//#else
+//		if (dot>_p) dot = (unsigned long) (dot % _p);
+//#endif
+//		i_begin += (unsigned int) min_sz;
+//	} while (i_begin <sz);
+//	r = (Element)dot;
+//	return r;
+//	}
 
-    template<typename COMP>
-    inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::dotprod
-    ( Element& r, const size_t sz, constArray a, constArray b ) const
-    {
-	return Modular<int64_t, COMP>::dotprod(r, int(_p), sz, a, b);
-    }
+//	template<typename COMP>
+//	inline typename Modular<int64_t, COMP>::Element& Modular<int64_t, COMP>::dotprod
+//	( Element& r, const size_t sz, constArray a, constArray b ) const
+//	{
+//	return Modular<int64_t, COMP>::dotprod(r, int(_p), sz, a, b);
+//	}
 
 
-    //  a -> r: int64_t to double
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::i2d ( const size_t sz, double* r, constArray a ) const
-    {
-	for (size_t i=0; i<sz; ++i)  {
-	    r[i] = (double) a[i];
-	}
-    }
+//	//  a -> r: int64_t to double
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::i2d ( const size_t sz, double* r, constArray a ) const
+//	{
+//	for (size_t i=0; i<sz; ++i)  {
+//		r[i] = (double) a[i];
+//	}
+//	}
 
-    //  a -> r: double to int64_t
-    template<typename COMP>
-    inline void Modular<int64_t, COMP>::d2i ( const size_t sz, Array r, const double* a ) const
-    {
-	union d_2_l {
-	    double d;
-	    int64_t r[2];
-	};
-	//  static const double offset = 4503599627370496.0; // 2^52
-	double offset = 4503599627370496.0; // 2^52
-	for (size_t i=0; i<sz; ++i)
-	    {
-		d_2_l tmp;
-		// - normalization: put fractional part at the end of the representation
-		tmp.d = a[i] + offset;
-		r[i] = tmp.r[1];
-		if (Compute_t(r[i]) < Compute_t(_p))
-		    r[i] %= Compute_t(_p);
-	    }
-	//    r[i] = (tmp.r[1] <_p ? tmp.r[1] : tmp.r[1]-_p);
-	//    r[i] = (r[i] <_p ? r[i] : r[i]%_p);
-	//    r[i] = (tmp.r[1] <_p ? tmp.r[1] : tmp.r[1]%_p);
-    }
+//	//  a -> r: double to int64_t
+//	template<typename COMP>
+//	inline void Modular<int64_t, COMP>::d2i ( const size_t sz, Array r, const double* a ) const
+//	{
+//	union d_2_l {
+//		double d;
+//		int64_t r[2];
+//	};
+//	//  static const double offset = 4503599627370496.0; // 2^52
+//	double offset = 4503599627370496.0; // 2^52
+//	for (size_t i=0; i<sz; ++i)
+//		{
+//		d_2_l tmp;
+//		// - normalization: put fractional part at the end of the representation
+//		tmp.d = a[i] + offset;
+//		r[i] = tmp.r[1];
+//		if (Compute_t(r[i]) < Compute_t(_p))
+//			r[i] %= Compute_t(_p);
+//		}
+//	//    r[i] = (tmp.r[1] <_p ? tmp.r[1] : tmp.r[1]-_p);
+//	//    r[i] = (r[i] <_p ? r[i] : r[i]%_p);
+//	//    r[i] = (tmp.r[1] <_p ? tmp.r[1] : tmp.r[1]%_p);
+//	}
 
 
     // -- Input: (z, <_p>)

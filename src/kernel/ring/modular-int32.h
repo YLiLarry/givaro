@@ -28,6 +28,7 @@
 #include "givaro/givranditer.h"
 #include "givaro/ring-interface.h"
 #include "givaro/modular-general.h"
+#include "givaro/modular-implem.h"
 
 namespace Givaro {
 
@@ -38,19 +39,26 @@ namespace Givaro {
 	 * .
 	 */
 	template<typename COMP>
-	class Modular<int32_t, COMP> : public virtual FiniteFieldInterface<int32_t>
+	class Modular<int32_t, COMP> :
+			public virtual Modular_implem<int32_t, typename std::make_unsigned<COMP>::type>
 	{
 	public:
 
 		// ----- Exported Types and constantes
+//		using Residu_t = uint32_t;
+//		using Compute_t = typename std::make_unsigned<COMP>::type;
+
 		using Self_t = Modular<int32_t, COMP>;
-		using Residu_t = uint32_t;
-		using Compute_t = typename std::make_unsigned<COMP>::type;
+		using Parent_t = Modular_implem<int32_t, typename std::make_unsigned<COMP>::type>;
+		using Storage_t = typename Parent_t::Storage_t;
+		using Element = Storage_t;
+		using Compute_t = typename Parent_t::Compute_t;
+		using Residu_t = typename Parent_t::Residu_t;
 		enum { size_rep = sizeof(Residu_t) };
 
 		// ----- Representation of vector of the Element
-		typedef Element* Array;
-		typedef const Element* constArray;
+//		typedef Element* Array;
+//		typedef const Element* constArray;
 
 		// ----- Constantes
 		const Element zero;
@@ -58,12 +66,12 @@ namespace Givaro {
 		const Element mOne;
 
 		// ----- Constructors
-		Modular()
-			: zero(static_cast<Element>(0))
-			, one(static_cast<Element>(1))
-			, mOne(static_cast<Element>(-1))
-			, _p(static_cast<Residu_t>(0))
-			, _bitsizep(0) {}
+//		Modular()
+//			: zero(static_cast<Element>(0))
+//			, one(static_cast<Element>(1))
+//			, mOne(static_cast<Element>(-1))
+//			, _p(static_cast<Residu_t>(0))
+//			, _bitsizep(0) {}
 
 		Modular(const Residu_t p)
 			: zero(static_cast<Element>(0))
@@ -84,41 +92,41 @@ namespace Givaro {
 		Modular(const Self_t& F)
 			: zero(F.zero), one(F.one), mOne(F.mOne), _p(F._p), _bitsizep(F._bitsizep) {}
 
-		// ----- Accessors
-		inline Element minElement() const override { return zero; }
-		inline Element maxElement() const override { return mOne; }
+//		// ----- Accessors
+//		inline Element minElement() const override { return zero; }
+//		inline Element maxElement() const override { return mOne; }
 
-		// ----- Access to the modulus
-		inline Residu_t residu() const { return _p; }
-		inline Residu_t size() const { return _p; }
-		inline Residu_t characteristic() const { return _p; }
-		inline Residu_t cardinality() const { return _p; }
-		template<class T> inline T& characteristic(T& p) const { return p = _p; }
-		template<class T> inline T& cardinality(T& p) const { return p = _p; }
+//		// ----- Access to the modulus
+//		inline Residu_t residu() const { return _p; }
+//		inline Residu_t size() const { return _p; }
+//		inline Residu_t characteristic() const { return _p; }
+//		inline Residu_t cardinality() const { return _p; }
+//		template<class T> inline T& characteristic(T& p) const { return p = _p; }
+//		template<class T> inline T& cardinality(T& p) const { return p = _p; }
 
 		static inline Residu_t maxCardinality();
 		static inline Residu_t minCardinality() { return 2; }
 
-		// ----- Checkers
-		inline bool isZero(const Element& a) const override { return a == zero; }
-		inline bool isOne (const Element& a) const override { return a == one; }
-		inline bool isMOne(const Element& a) const override { return a == mOne; }
-        inline bool isUnit(const Element& a) const override;
-		inline bool areEqual(const Element& a, const Element& b) const override { return a == b; }
+//		// ----- Checkers
+//		inline bool isZero(const Element& a) const override { return a == zero; }
+//		inline bool isOne (const Element& a) const override { return a == one; }
+//		inline bool isMOne(const Element& a) const override { return a == mOne; }
+//		inline bool areEqual(const Element& a, const Element& b) const override { return a == b; }
+		inline bool isUnit(const Element& a) const override;
 		inline size_t length(const Element a) const { return size_rep; }
 
 		// ----- Ring-wise operators
-		inline bool operator==(const Self_t& F) const { return _p == F._p; }
-		inline bool operator!=(const Self_t& F) const { return _p != F._p; }
-		inline Self_t& operator=(const Self_t& F)
-		{
-			F.assign(const_cast<Element&>(one),  F.one);
-			F.assign(const_cast<Element&>(zero), F.zero);
-			F.assign(const_cast<Element&>(mOne), F.mOne);
-			_p = F._p;
-			_bitsizep = F._bitsizep;
-			return *this;
-		}
+//		inline bool operator==(const Self_t& F) const { return _p == F._p; }
+//		inline bool operator!=(const Self_t& F) const { return _p != F._p; }
+//		inline Self_t& operator=(const Self_t& F)
+//		{
+//			F.assign(const_cast<Element&>(one),  F.one);
+//			F.assign(const_cast<Element&>(zero), F.zero);
+//			F.assign(const_cast<Element&>(mOne), F.mOne);
+//			_p = F._p;
+//			_bitsizep = F._bitsizep;
+//			return *this;
+//		}
 
 		// ----- Initialisation
 		Element& init (Element& x) const;
